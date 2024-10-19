@@ -21,11 +21,17 @@ dependencies {
     implementation(libs.io.ktor.client.cio)
     implementation(libs.io.ktor.client.content.negotiation)
     implementation(libs.io.ktor.serialization.kotlinx.json)
+    implementation(libs.org.jetbrains.exposed.core)
+    implementation(libs.org.jetbrains.exposed.crypt)
+    implementation(libs.org.jetbrains.exposed.dao)
+    implementation(libs.org.jetbrains.exposed.jdbc)
+    implementation(libs.org.jetbrains.exposed.kotlin.datetime)
+    implementation(libs.org.postgresql)
 }
 
 tasks.test {
     useJUnitPlatform()
 }
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(21)
 }
