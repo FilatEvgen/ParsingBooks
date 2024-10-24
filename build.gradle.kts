@@ -1,13 +1,10 @@
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.include
+
 plugins {
     kotlin("jvm") version "2.0.0"
     alias(libs.plugins.ktor)
     alias(libs.plugins.kotlinx.serialization)
-
-
-
-
 }
-
 group = "org.example"
 version = "1.0-SNAPSHOT"
 
@@ -31,7 +28,10 @@ dependencies {
     implementation(libs.io.ktor.server.netty)
     implementation(libs.io.ktor.server.content.negotiation)
     implementation(libs.io.ktor.server.html.builder)
-
+    implementation(project(":parsing-book"))
+    implementation(project(":book-api"))
+    implementation(project(":Database-module"))
+    implementation(project(":common-module"))
 }
 
 tasks.test {

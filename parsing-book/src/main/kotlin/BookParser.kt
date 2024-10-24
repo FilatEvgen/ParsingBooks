@@ -1,7 +1,7 @@
 package org.example
 
 import java.util.regex.Pattern
-import Book
+
 
 val books = mutableListOf<Book>()
 
@@ -12,11 +12,14 @@ fun parsingBook(html: String): List<Book> {
     )
     val matcher = pattern.matcher(html)
     while (matcher.find()){
-        val title = matcher.group(1)
-        val author = matcher.group(2)
-        val link = matcher.group(3)
-        val votes = matcher.group(4).toInt()
-        val rating = matcher.group(5).replace(",", ".").toDouble()
+        val link = matcher.group(1)
+        val title = matcher.group(2)
+        val author = matcher.group(3)
+        val votesString = matcher.group(5).replace(",", "")
+        val votes = votesString.toInt()
+        val ratingString = matcher.group(4).replace(",", ".")
+        val rating = ratingString.toDouble()
+
         insertBook(title, author, link, votes, rating)
         books.add(Book(title, author, link, votes, rating))
         }
