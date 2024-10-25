@@ -1,5 +1,7 @@
 plugins {
     kotlin("jvm")
+    alias(libs.plugins.ktor)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 group = "org.example"
@@ -23,7 +25,8 @@ dependencies {
     implementation(libs.io.ktor.server.content.negotiation)
     implementation(libs.io.ktor.server.html.builder)
     implementation(project(":common-module"))
-    implementation(project(":book-api"))
+    implementation(project(":parsing-book"))
+
 }
 
 tasks.test {

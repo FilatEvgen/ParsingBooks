@@ -3,6 +3,9 @@ import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.routing.*
+import io.ktor.util.reflect.*
+import kotlinx.serialization.builtins.serializer
+import org.example.Book
 import org.example.books
 
 
@@ -12,7 +15,7 @@ fun Application.module(){
     }
     routing {
         get("/books/author/{author}") {
-            val author = call.parameters["author"] ?: return@get call.respond(HttpStatusCode.BadRequest, "Параметр автор не задан")
+            val author = call.parameters["author"] ?: return@get call.respond(HttpStatusCode.BadRequest, "Параметор авто указан не правильно")
             val filteredBooks = filterBooksByAuthor(books, author)
             call.respond(filteredBooks)
         }
