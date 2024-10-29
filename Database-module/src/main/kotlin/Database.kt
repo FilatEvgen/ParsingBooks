@@ -16,14 +16,14 @@ fun connectToDatabase(config: Config){
         SchemaUtils.create(BooksTable)
     }
 }
-fun insertBook(title: String, author: String, link: String, votes: Int, rating: Double){
+fun insertBook(book: Book){
     transaction {
         BooksTable.insert {
-            it[BooksTable.title] = title
-            it[BooksTable.author] = author
-            it[BooksTable.link] =  link
-            it[BooksTable.votes] = votes
-            it[BooksTable.rating] = rating
+            it[title] = book.title
+            it[author] = book.author
+            it[link] =  book.link
+            it[votes] = book.votes
+            it[rating] = book.rating
         }
     }
 }

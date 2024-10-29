@@ -19,13 +19,12 @@ dependencies {
     implementation(libs.org.jetbrains.exposed.dao)
     implementation(libs.org.jetbrains.exposed.jdbc)
     implementation(libs.org.postgresql)
-    implementation(libs.io.ktor.server.core)
-    implementation(libs.io.ktor.server.netty)
-    implementation(libs.io.ktor.server.content.negotiation)
     implementation(project(":parsing-book"))
-    implementation(project(":book-api"))
     implementation(project(":Database-module"))
     implementation(project(":common-module"))
+    implementation(project(":html-module"))
+    implementation(project(":http-module"))
+    implementation(project(":book-api"))
 }
 
 kotlin {

@@ -16,6 +16,7 @@ dependencies {
     implementation(libs.org.jetbrains.exposed.dao)
     implementation(libs.org.jetbrains.exposed.jdbc)
     implementation(libs.org.postgresql)
+    implementation(project(":common-module"))
 
 }
 

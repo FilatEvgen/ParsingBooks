@@ -12,6 +12,8 @@
             <option value="$PROJECT_DIR$/Database-module" />
             <option value="$PROJECT_DIR$/book-api" />
             <option value="$PROJECT_DIR$/common-module" />
+            <option value="$PROJECT_DIR$/html-module" />
+            <option value="$PROJECT_DIR$/http-module" />
             <option value="$PROJECT_DIR$/parsing-book" />
           </set>
         </option>
