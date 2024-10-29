@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
 
-fun connectToDatabase(config: Config){
+fun connectToDatabase(config: Config) {
     Database.connect(
         config.database.url,
         driver = config.database.driver,
@@ -16,14 +16,17 @@ fun connectToDatabase(config: Config){
         SchemaUtils.create(BooksTable)
     }
 }
-fun insertBook(book: Book){
+
+fun insertBooks(books: List<Book>) {
     transaction {
-        BooksTable.insert {
-            it[title] = book.title
-            it[author] = book.author
-            it[link] =  book.link
-            it[votes] = book.votes
-            it[rating] = book.rating
+        books.forEach { book ->
+            BooksTable.insert {
+                it[title] = book.title
+                it[author] = book.author
+                it[link] = book.link
+                it[votes] = book.votes
+                it[rating] = book.rating
+            }
         }
     }
 }

@@ -25,7 +25,10 @@ dependencies {
     implementation(project(":Database-module"))
     implementation(project(":html-module"))
     implementation(project(":http-module"))
-
+    testImplementation("io.ktor:ktor-server-tests:2.3.4") // Для тестирования Ktor
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.8.0") // Для тестирования на Kotlin
+    implementation("org.slf4j:slf4j-api:2.0.0")
+    implementation("org.slf4j:slf4j-simple:2.0.0")
 }
 
 kotlin {

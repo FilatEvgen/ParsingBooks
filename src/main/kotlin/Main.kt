@@ -14,7 +14,7 @@ suspend fun main() {
     val html = htmlContent(client, url)
     val books = parsingBook(html)
     books.forEach { book ->
-        insertBook(book)
+        insertBooks(books)
     }
     val author = "Виктор Пелевин"
     val filteredBooks = filterBooksByAuthor(books, author)

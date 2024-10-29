@@ -1,3 +1,8 @@
+package org.example
+
+import createHttpClient
+import filterBooksByAuthor
+import filterBooksByRating
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -6,7 +11,6 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import org.example.*
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.LoggerFactory
@@ -26,9 +30,7 @@ fun Application.module() {
                 val url = "https://www.litres.ru/popular/"
                 val html = htmlContent(client, url)
                 val books = parsingBook(html)
-                books.forEach { book ->
-                    insertBook(book)
-                }
+                insertBooks(books)
                 call.respond(HttpStatusCode.OK, "Парсинг завершен и данные сохранены.")
             } catch (e: Exception) {
                 logger.error("Ошибка при парсинге: ${e.message}", e)
