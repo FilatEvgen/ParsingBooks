@@ -1,5 +1,7 @@
 plugins {
     kotlin("jvm")
+    alias(libs.plugins.ktor)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 group = "org.example"
@@ -10,8 +12,11 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":Database-module"))
     implementation(project(":common-module"))
+    implementation(libs.io.ktor.client.core)
+    implementation(libs.io.ktor.client.cio)
+    implementation(libs.io.ktor.client.content.negotiation)
+    implementation(libs.io.ktor.serialization.kotlinx.json)
 
 }
 

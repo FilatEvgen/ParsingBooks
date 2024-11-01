@@ -1,8 +1,3 @@
-package org.example
-
-import createHttpClient
-import filterBooksByAuthor
-import filterBooksByRating
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -11,8 +6,7 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import org.jetbrains.exposed.sql.selectAll
-import org.jetbrains.exposed.sql.transactions.transaction
+import org.example.*
 import org.slf4j.LoggerFactory
 
 val logger = LoggerFactory.getLogger("Application")
@@ -21,15 +15,18 @@ fun Application.module() {
     install(ContentNegotiation) {
         json()
     }
+    val config = loadConfig("config.json")
+    connectToDatabase(config)
 
     val client = createHttpClient()
+    val urlDownloader = UrlDownloader(client)
 
     routing {
         get("/parse") {
             try {
                 val url = "https://www.litres.ru/popular/"
-                val html = htmlContent(client, url)
-                val books = parsingBook(html)
+                val html = urlDownloader.download(url)
+                val books = parseBooks(html)
                 insertBooks(books)
                 call.respond(HttpStatusCode.OK, "Парсинг завершен и данные сохранены.")
             } catch (e: Exception) {
@@ -66,20 +63,6 @@ fun Application.module() {
                 logger.error("Ошибка при получении книг по рейтингу: ${e.message}", e)
                 call.respond(HttpStatusCode.InternalServerError, "Ошибка при получении книг.")
             }
-        }
-    }
-}
-
-fun getAllBooks(): List<Book> {
-    return transaction {
-        BooksTable.selectAll().map {
-            Book(
-                title = it[BooksTable.title],
-                author = it[BooksTable.author],
-                link = it[BooksTable.link],
-                votes = it[BooksTable.votes],
-                rating = it[BooksTable.rating]
-            )
         }
     }
 }

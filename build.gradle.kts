@@ -22,8 +22,6 @@ dependencies {
     implementation(project(":parsing-book"))
     implementation(project(":Database-module"))
     implementation(project(":common-module"))
-    implementation(project(":html-module"))
-    implementation(project(":http-module"))
     implementation(project(":book-api"))
 }
 

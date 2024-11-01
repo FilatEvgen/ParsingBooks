@@ -23,8 +23,6 @@ dependencies {
     implementation(project(":common-module"))
     implementation(project(":parsing-book"))
     implementation(project(":Database-module"))
-    implementation(project(":html-module"))
-    implementation(project(":http-module"))
     testImplementation("io.ktor:ktor-server-tests:2.3.4") // Для тестирования Ktor
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.8.0") // Для тестирования на Kotlin
     implementation("org.slf4j:slf4j-api:2.0.0")

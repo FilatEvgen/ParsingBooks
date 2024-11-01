@@ -4,6 +4,7 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.server.testing.*
+import module
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -23,7 +24,7 @@ class ApplicationTest {
     fun testGetBooksByAuthor() {
         testApplication {
             application { module() }
-            val response = client.get("/books/author/Викто Пелевин")
+            val response = client.get("/books/author/Виктор Пелевин") // Исправлено имя автора
             assertEquals(HttpStatusCode.OK, response.status)
             assertNotNull(response.bodyAsText())
         }
