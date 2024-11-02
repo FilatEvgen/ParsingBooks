@@ -12,6 +12,7 @@ repositories {
 }
 
 dependencies {
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.8.0") // Для тестирования на Kotlin
     implementation(project(":common-module"))
     implementation(libs.io.ktor.client.core)
     implementation(libs.io.ktor.client.cio)

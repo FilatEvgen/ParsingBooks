@@ -14,10 +14,12 @@ fun parseBooks(html: String): List<Book> {
         val title = matcher.group(2)
         val author = matcher.group(3)
         val votesString = matcher.group(5).replace(",", "")
-        val votes = votesString.toInt()
+        val votes = votesString.toIntOrNull()
         val ratingString = matcher.group(4).replace(",", ".")
-        val rating = ratingString.toDouble()
+        val rating = ratingString.toDoubleOrNull()
+        if (votes != null && rating != null) {
         books.add(Book(title, author, link, votes, rating))
+        }
     }
     return books
 }

@@ -15,6 +15,16 @@ fun connectToDatabase(config: Config) {
         SchemaUtils.create(BooksTable)
     }
 }
+fun connectToTestDatabase() {
+    Database.connect(
+        url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1",
+        driver = "org.h2.Driver",
+        user = "sa",
+        password = "")
+    transaction {
+        SchemaUtils.create(BooksTable)
+    }
+}
 
 fun insertBooks(books: List<Book>) {
     transaction {

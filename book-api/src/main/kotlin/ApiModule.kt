@@ -6,6 +6,7 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.io.files.FileNotFoundException
 import org.example.*
 import org.slf4j.LoggerFactory
 
@@ -15,7 +16,16 @@ fun Application.module() {
     install(ContentNegotiation) {
         json()
     }
-    val config = loadConfig("config.json")
+    val config: Config = try {
+        loadConfig("config.json")
+    } catch (e: FileNotFoundException) {
+        Config(DatabaseConfig(
+            url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1",
+            driver = "org.h2.Driver",
+            user = "sa",
+            password = ""
+        ))
+    }
     connectToDatabase(config)
 
     val client = createHttpClient()
@@ -40,6 +50,12 @@ fun Application.module() {
                 HttpStatusCode.BadRequest,
                 "Параметр автора указан неправильно"
             )
+            if (!isValidAuthor(author)) {
+                return@get call.respond(
+                    HttpStatusCode.BadRequest,
+                    "Параметр автора указан неправильно"
+                )
+            }
             try {
                 val books = getAllBooks()
                 val filteredBooks = filterBooksByAuthor(books, author)
@@ -66,7 +82,9 @@ fun Application.module() {
         }
     }
 }
-
+fun isValidAuthor(author: String): Boolean {
+    return author.all { it.isLetter() || it.isWhitespace() }
+}
 fun main() {
     embeddedServer(Netty, port = 8080, module = Application::module).start(wait = true)
 }
