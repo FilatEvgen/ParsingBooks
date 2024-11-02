@@ -40,7 +40,7 @@ fun insertBooks(books: List<Book>) {
     }
 }
 
-// Получение всех книг
+
 fun getAllBooks(): List<Book> {
     return transaction {
         BooksTable.selectAll().map {
@@ -55,7 +55,6 @@ fun getAllBooks(): List<Book> {
     }
 }
 
-// Обновление книги по идентификатору
 fun updateBook(id: Int, updatedBook: Book) {
     transaction {
         BooksTable.update({ BooksTable.id eq id }) {
@@ -68,7 +67,7 @@ fun updateBook(id: Int, updatedBook: Book) {
     }
 }
 
-// Удаление книги по идентификатору
+
 fun deleteBook(id: Int) {
     transaction {
         BooksTable.deleteWhere { BooksTable.id eq id }
